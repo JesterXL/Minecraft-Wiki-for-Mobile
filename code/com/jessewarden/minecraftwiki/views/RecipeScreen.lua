@@ -11,12 +11,10 @@ function RecipeScreen:new(x, y, stageWidth, stageHeight)
 
 	local screen = BaseScreen:new(x, y, stageWidth, stageHeight)
 	
-	local scrollView = widget.newScrollView{ y=0}
+	local scrollHeight = WidgetUtils:getHeight(stageHeight - screen.content.y)
+	local scrollView = widget.newScrollView{y=0, width=stageWidth, height=scrollHeight}
 	screen.scrollView = scrollView
 	screen:insertContent(scrollView.view)
-	scrollView.view.width = stageWidth
-	local scrollHeight = WidgetUtils:getHeight(stageHeight - screen.content.y)
-	scrollView.view.height = scrollHeight
 	
 	local craftGridView = CraftGridView:new(x, y, stageWidth, stageHeight)
 	screen.craftGridView = craftGridView
