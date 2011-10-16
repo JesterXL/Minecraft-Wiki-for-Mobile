@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>com/jessewarden/minecraftwiki/controls/CraftGridView.lua</string>
+	<string>main.lua</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -21,61 +21,137 @@
 	<integer>229</integer>
 	<key>metaData</key>
 	<dict>
+		<key>com/jessewarden/minecraftwiki/Constants.lua</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>6</integer>
+				<key>line</key>
+				<integer>105</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>91</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>2</integer>
+				<key>line</key>
+				<integer>105</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>9</integer>
+				<key>line</key>
+				<integer>105</integer>
+			</dict>
+		</dict>
 		<key>com/jessewarden/minecraftwiki/MineCraftWikiView.lua</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>7</integer>
+				<integer>43</integer>
 				<key>line</key>
-				<integer>137</integer>
+				<integer>61</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>121</integer>
+			<integer>48</integer>
 		</dict>
 		<key>com/jessewarden/minecraftwiki/controls/CraftGridView.lua</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>59</integer>
-				<key>line</key>
 				<integer>4</integer>
+				<key>line</key>
+				<integer>8</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>4</integer>
+				<key>line</key>
+				<integer>8</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>7</integer>
+				<key>line</key>
+				<integer>8</integer>
+			</dict>
 		</dict>
-		<key>com/jessewarden/minecraftwiki/views/AllScreen.lua</key>
+		<key>com/jessewarden/minecraftwiki/controls/TextArea.lua</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>68</integer>
+				<integer>54</integer>
 				<key>line</key>
-				<integer>16</integer>
+				<integer>60</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>12</integer>
+			<integer>29</integer>
 		</dict>
-		<key>com/jessewarden/minecraftwiki/views/RecipeScreen.lua</key>
+		<key>com/jessewarden/minecraftwiki/views/BaseScreen.lua</key>
 		<dict>
 			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>25</integer>
+				<key>line</key>
+				<integer>69</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>38</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>17</integer>
+				<key>line</key>
+				<integer>69</integer>
+			</dict>
+			<key>selectTo</key>
 			<dict>
 				<key>column</key>
 				<integer>36</integer>
 				<key>line</key>
 				<integer>69</integer>
 			</dict>
+		</dict>
+		<key>com/jessewarden/minecraftwiki/views/RecipeScreen.lua</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>7</integer>
+				<key>line</key>
+				<integer>83</integer>
+			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>55</integer>
+			<integer>71</integer>
 		</dict>
 		<key>main.lua</key>
 		<dict>
@@ -84,25 +160,27 @@
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>89</integer>
+				<integer>201</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>78</integer>
+			<integer>169</integer>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
 		<string>main.lua</string>
 		<string>com/jessewarden/minecraftwiki/views/RecipeScreen.lua</string>
-		<string>com/jessewarden/minecraftwiki/controls/CraftGridView.lua</string>
-		<string>com/jessewarden/minecraftwiki/views/AllScreen.lua</string>
 		<string>com/jessewarden/minecraftwiki/MineCraftWikiView.lua</string>
+		<string>com/jessewarden/minecraftwiki/Constants.lua</string>
+		<string>com/jessewarden/minecraftwiki/views/BaseScreen.lua</string>
+		<string>com/jessewarden/minecraftwiki/controls/TextArea.lua</string>
+		<string>com/jessewarden/minecraftwiki/controls/CraftGridView.lua</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
-	<true/>
+	<false/>
 	<key>windowFrame</key>
-	<string>{{608, 338}, {831, 540}}</string>
+	<string>{{619, 162}, {873, 716}}</string>
 </dict>
 </plist>

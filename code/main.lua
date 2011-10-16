@@ -87,7 +87,7 @@ function onSystemEvent(event)
 	--elseif event.type == "applicationResume"
 end
 
-initialize()
+
 
 local function testMainScreen()
 	require "com.jessewarden.minecraftwiki.views.MainScreen"
@@ -149,12 +149,23 @@ local function testCraftGridView()
 end
 
 local function testTextArea()
-	local box = assert(TextArea:new({hasBackground = false}), "Failed to create TextArea")
-	box.text = "laksdjfklajsdfjkalsdjfj"
+	print("testTextArea")
+	--local box = assert(TextArea:new({hasBackground = false, width=100, height=0}), "Failed to create TextArea")
+	--box.text = "Hello world, and welcome to t3h\nbig show. Don't forget to pick up your wrench at the desk."
 	--box:move(0, 0)
-	box:move(40, 40)
+	--box:move(40, 40)
 	--box.x = 40
 	--box.y = 40
+	
+	require "com.jessewarden.minecraftwiki.Constants"
+	require "com.jessewarden.minecraftwiki.controls.TextArea"
+	local stage = display.getCurrentStage()
+	--local testTextArea = assert(TextArea:new({text = "Hello World", x=40, y=40}), "Failed to create TextArea")
+	local descriptionTitle = assert(TextArea:new({hasBackground = false, width=stage.width, x=40, y=40,
+											size=Constants.TEXT_TITLE_SIZE}), "Failed to create TextArea")
+	descriptionTitle:setText("Description")
+--	print("descriptionTitle: ", descriptionTitle)
+	return true
 end
 
 local function testRecipeScreen()
@@ -180,6 +191,17 @@ local function testRecipeScreen()
 	--screen:setRecipe(nil)
 end
 
+local function testLoopingOverRecipes()
+	require "com.jessewarden.minecraftwiki.Constants"
+	local allRecipesData = Constants.recipes
+	for recipeName,recipeVO in pairs(allRecipesData) do
+		print("recipeVO: ", recipeVO, ", recipeName: ", recipeName)
+	end
+end
+
+
+
+
 --testMainScreen()
 --testListHeight()
 --testRecipesScreen()
@@ -187,7 +209,11 @@ end
 --testingPush()
 --testNumberText()
 --testCraftGridView()
---testTextArea()
+--assert(testTextArea(), "Failed testTextArea")
 --testRecipeScreen()
+--testLoopingOverRecipes()
+
+
+initialize()
 
 

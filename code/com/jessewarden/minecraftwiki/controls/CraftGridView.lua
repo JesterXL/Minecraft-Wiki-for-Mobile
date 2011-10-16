@@ -1,8 +1,14 @@
 CraftGridView = {}
+CraftGridView.MINIMUM_WIDTH = 211
 
 function CraftGridView:new()
 	local group = display.newGroup()
-	group.background = display.newImage("Grid.png", 0, 0, true)
+	group.x = x
+	group.y = y
+	
+	-- 211,124
+	local background = display.newImage("Grid.png", 0, 0, true)
+	group.background = background
 	group.background:setReferencePoint(display.TopLeftReferencePoint)
 	group:insert(group.background)
 	group.gridImages = display.newGroup()
@@ -41,22 +47,22 @@ function CraftGridView:new()
 		return source
 	end
 	
-	function group:setSource(sourceList)
+	function group:setSource(recipe)
 		self:removeAllGridImages()
-		if sourceList == nil then
+		if recipe == nil then
 			self:setResult(nil, nil)
 			return true
 		end
 		
-		self:setResult(sourceList.image, sourceList.value)
+		self:setResult(recipe.image, recipe.value)
 		
 		local startX = 10
 		local startY = 10
 		local wSize = 36
 		local hSize = 36
 		local r = 1
-		while sourceList[r] do
-			local row = sourceList[r]
+		while recipe[r] do
+			local row = recipe[r]
 			local c = 1
 			while row[c] do
 				local column = row[c]

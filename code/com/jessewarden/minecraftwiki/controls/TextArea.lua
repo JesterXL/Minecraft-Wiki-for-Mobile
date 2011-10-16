@@ -27,13 +27,25 @@ function TextArea:new(params)
 	if params.size == nil then
 		params.size = 16
 	end
-
+	
 	if params.width == nil then
 		params.width = 100
 	end
 
 	if params.height == nil then
 		params.height = 100
+	end
+	
+	if params.x == nil then
+		params.x = 0
+	end
+	
+	if params.y == nil then
+		params.y = 0
+	end
+	
+	if params.color == nil then
+		params.color = {r = 255, g = 255, b = 255}
 	end
 	
 	local platform = system.getInfo("platformName")
@@ -45,9 +57,11 @@ function TextArea:new(params)
 	else
 		text = display.newText("", 0, 0, params.font, params.size)
 	end
+	
 	text:setReferencePoint(display.TopLeftReferencePoint)
 	text.size = params.size
 	text.font = native.newFont(params.font, params.size)
+	text:setTextColor(params.color.r, params.color.g, params.color.b)
 	if params.text ~= nil then
 		text.text = params.text
 	end
@@ -69,6 +83,13 @@ function TextArea:new(params)
 			return self.y - self.height / 2
 		end
 	end
+	
+	function text:setText(value)
+		self.text = value
+		self:move(self.x, self.y)
+	end
+	
+	text:move(params.x, params.y)
 	
 	return text
 end

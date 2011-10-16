@@ -27,8 +27,10 @@ function MineCraftWikiView:new(startX, startY, stageWidth, stageHeight)
 													transition=easing.outExpo,
 													onComplete=screen.onAddScreenAndRemoveTransitionComplete})
 		end
-		
-		local view = classObject:new(startX, startY, stageWidth, stageHeight)
+		--local view, err = pcall(classObject:new(0, 0, stageWidth, stageHeight))
+		--print("err: ", err)
+		local view = classObject:new(0, 0, stageWidth, stageHeight)
+		assert(view, "You cannot have a nil view.")
 		self.currentScreen = view
 		view:addEventListener("onBack", screen.onViewBack)
 		view:addEventListener("onNavigate", screen.onViewNavigate)
@@ -57,6 +59,7 @@ function MineCraftWikiView:new(startX, startY, stageWidth, stageHeight)
 				transition.cancel(self.currentScreen.tween)
 			end
 			--self.currentPopping = self.currentScreen
+			self.currentScreen:beforeTransitionOut()
 			self.currentScreen.tween = transition.to(self.currentScreen, 
 													{time=500, 
 													alpha=0, 
@@ -129,7 +132,7 @@ function MineCraftWikiView:new(startX, startY, stageWidth, stageHeight)
 	end
 	
 	function screen.onViewNavigate(event)
-		--print("onViewNavigate, event.navTarget: ", event.navTarget)
+		print("onViewNavigate, event.navTarget: ", event.navTarget)
 		local self = screen
 		local classObject = _G[event.navTarget]
 		local view = self:addScreen(classObject)

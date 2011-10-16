@@ -62,6 +62,15 @@ function BaseScreen:new(x, y, width, height)
 		screen.toolbar = nil
 	end
 	
+	-- HACK: allow components to "do stuff" before they transition.
+	-- In the case of some, basically hide native text fields since they can't apparently
+	-- alpha if they're in a group since they don't work with gropups which would mean
+	-- I'd have to manually set their view.alpha, which is hard without a setter,
+	-- which I'm not doing so....... p.i.t.a.
+	function screen:beforeTransitionOut()
+		-- stub
+	end
+	
 	return screen
 end
 
