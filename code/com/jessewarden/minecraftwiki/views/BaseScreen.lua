@@ -1,4 +1,4 @@
-require "widget"
+local widget = require "widget"
 
 BaseScreen = {}
 
@@ -7,7 +7,7 @@ function BaseScreen:new(x, y, width, height)
 	screen.x = x
 	screen.y = y
 	
-	local toolbar = widget.newToolbar( "Title Text" )
+	local toolbar = widget.newTabBar( "Title Text" )
 	toolbar.view.width = width
 	screen.toolbar = toolbar
 	

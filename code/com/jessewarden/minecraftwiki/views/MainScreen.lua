@@ -1,4 +1,4 @@
-require "widget"
+local widget = require "widget"
 require "com.jessewarden.minecraftwiki.views.BaseScreen"
 
 MainScreen = {}

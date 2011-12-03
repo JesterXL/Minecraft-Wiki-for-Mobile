@@ -1,7 +1,8 @@
-require "widget"
+local widget = require "widget"
 require "com.jessewarden.minecraftwiki.views.BaseScreen"
 require "com.jessewarden.utils.WidgetUtils"
 require "com.jessewarden.minecraftwiki.Constants"
+require "com.jessewarden.minecraftwiki.controls.RecipesRowRenderer"
 
 RecipesScreen = {}
 
@@ -9,8 +10,10 @@ function RecipesScreen:new(x, y, width, height)
 	
 	local screen = BaseScreen:new(x, y, width, height)
 	screen.classType = "RecipesScreen"
+	screen.categories = {"All", "Favorites", "Types", "Materials"}
 	
 	function screen.onItemClick(event)
+		print("RecipesScreen::onItemClick")
 	   --print( "You touched item: " .. self.categoryData )
 		local self = screen
 		--print("self.categoryData: ", screen.categoryData[event.target.id].title.label)
@@ -33,77 +36,29 @@ function RecipesScreen:new(x, y, width, height)
 		print("swipe")
 	end
 	
-	--[[
-	onRelease = onCategoryClick,
-    onLeftSwipe = onSwipeListener,
-    onRightSwipe = onSwipeListener,
-]]--
+	function screen.onRender(event)
+		print("screen::onRender")
+		local self = screen
+		local row = event.target
+        local rowGroup = event.view
+		local rowRenderer = RecipesRowRenderer:new()
+		rowRenderer:setLabel(self.categories[event.index])
+        -- must insert everything into event.view:
+        rowGroup:insert( rowRenderer )
+	end
+	-- all, favorites, type, materials
 	
-	local categoryData = 
-	{
-		{
-			title = 
-			{
-				label = "All",
-				font = "Helvetica-Bold",
-	            size = Constants.ROW_FONT_SIZE,
-	            color = { 0, 0, 0 },  -- red, green, blue
-	            left = 14,
-	            top = 14,
-			},
-			onRelease = screen.onItemClick,
-			
-			{
-	            -- CATEGORY (just one key)
-
-	            categoryName = "My Category"
-	        },
-		},
-		{
-			title = {
-				label = "Favorites",
-				font = "Helvetica-Bold",
-	            size = Constants.ROW_FONT_SIZE,
-	            color = { 0, 0, 0 },  -- red, green, blue
-	            left = 14,
-	            top = 14,
-			},
-			onRelease = screen.onItemClick,
-		},
-		{	
-			title = {
-				label = "Type",
-				font = "Helvetica-Bold",
-	            size = Constants.ROW_FONT_SIZE,
-	            color = { 0, 0, 0 },  -- red, green, blue
-	            left = 14,
-	            top = 14,
-			},
-			onRelease = screen.onItemClick,
-		},
-		{	
-			title = {
-				label = "Material",
-				font = "Helvetica-Bold",
-	            size = Constants.ROW_FONT_SIZE,
-	            color = { 0, 0, 0 },  -- red, green, blue
-	            left = 14,
-	            top = 14,
-			},
-			onRelease = screen.onItemClick,
-		}
-	}
-	screen.categoryData = categoryData
-	
-	local recipeCategoriesList = widget.newTableView{rowHeight = Constants.ROW_HEIGHT, width=width}
+	local recipeCategoriesList = widget.newTableView{width=width}
 	screen.recipeCategoriesList = recipeCategoriesList
 	screen:insertContent(recipeCategoriesList.view)
 	local listHeight = WidgetUtils:getHeight(height - screen.content.y)
-	print("screen.content.y: ", screen.content.y)
-	print("height: ", height)
-	print("REcipesScreen, desiredHeight: ", (height - screen.content.y), ", listHeight: ", listHeight)
-	recipeCategoriesList.height = listHeight
-	recipeCategoriesList:sync(categoryData)
+	
+	for i=1,4 do
+		recipeCategoriesList:insertRow({onRender=screen.onRender,
+										onEvent=screen.onItemClick,
+										height=Constants.ROW_HEIGHT,
+										textLabel=textLabel})
+	end
 	
 	screen:setTitle("Recipes")
 	
@@ -116,8 +71,9 @@ function RecipesScreen:new(x, y, width, height)
 	screen.backButton = backButton
 	screen:insertHeader(backButton.view)
 	
-	backButton.view.x = 7
-	backButton.view.y = screen.toolbar.view.y + 7
+	backButton.view:setReferencePoint(display.TopLeftReferencePoint)
+	backButton.view.x = 0
+	--backButton.view.y = screen.toolbar.view.y + 7
 	backButton.isVisible = Constants.SHOW_BACK_BUTTON
 	
 	screen.superDestroy = screen.destroy

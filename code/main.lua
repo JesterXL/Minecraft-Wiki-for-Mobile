@@ -104,7 +104,15 @@ end
 local function testRecipesScreen()
 	require "com.jessewarden.minecraftwiki.views.RecipesScreen"
 	local stage = display.getCurrentStage()
-	local screen = RecipesScreen:new(x, y, stage.width, stage.height)
+	local screen = RecipesScreen:new(0, 42, stage.width, stage.height)
+end
+
+local function testRecipesRowRenderer()
+	require "com.jessewarden.minecraftwiki.controls.RecipesRowRenderer"
+	local row = RecipesRowRenderer:new()
+	row.x = 100
+	row.y = 100
+	print("row: ", row)
 end
 
 local function testAllScreen()
@@ -204,7 +212,8 @@ end
 
 --testMainScreen()
 --testListHeight()
---testRecipesScreen()
+--testRecipesRowRenderer()
+testRecipesScreen()
 --testAllScreen()
 --testingPush()
 --testNumberText()
@@ -214,6 +223,6 @@ end
 --testLoopingOverRecipes()
 
 
-initialize()
+--initialize()
 
 
