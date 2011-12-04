@@ -1,21 +1,36 @@
 local widget = require "widget"
+local storyboard = require "storyboard"
 
 BaseScreen = {}
 
-function BaseScreen:new(x, y, width, height)
-	local screen = display.newGroup()
-	screen.x = x
-	screen.y = y
+function BaseScreen:new()
+	local screen = storyboard.newScene()
 	
-	local toolbar = widget.newTabBar( "Title Text" )
-	toolbar.view.width = width
-	screen.toolbar = toolbar
+	function screen:createScene(event)
+		local group = self.view
+		local toolbar = widget.newTabBar( "Title Text" )
+		toolbar.view.width = width
+		screen.toolbar = toolbar
+
+		local content = display.newGroup()
+		screen.content = content
+
+		local headerContent = display.newGroup()
+		screen.headerContent = headerContent
+		
+		group:insert(content)
+		group:insert(toolbar.view)
+		group:insert(headerContent)
+
+		content.y = toolbar.view.y + 12
+	end
 	
-	local content = display.newGroup()
-	screen.content = content
-	
-	local headerContent = display.newGroup()
-	screen.headerContent = headerContent
+	function screen:destroyScene(event)
+		display.remove(self.toolbar)
+		self.headerContent:removeSelf()
+		self.content:removeSelf()
+		self:removeSelf()
+	end
 	
 	function screen.onBack(event)
 		if event.phase == "release" then
@@ -23,12 +38,6 @@ function BaseScreen:new(x, y, width, height)
 			return true
 		end
 	end
-	
-	screen:insert(content)
-	screen:insert(toolbar.view)
-	screen:insert(headerContent)
-	
-	content.y = toolbar.view.y + 12
 	
 	function screen:setTitle(text)
 		screen.toolbar.label = text

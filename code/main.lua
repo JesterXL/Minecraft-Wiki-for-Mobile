@@ -105,6 +105,13 @@ local function testRecipesScreen()
 	require "com.jessewarden.minecraftwiki.views.RecipesScreen"
 	local stage = display.getCurrentStage()
 	local screen = RecipesScreen:new(0, 42, stage.width, stage.height)
+	local t = {}
+	function t:onNavigate(event)
+		print("onNavigate")
+		local storyboard = require "storyboard"
+		storyboard.gotoScene( "com.jessewarden.minecraftwiki.views.RecipeScreen" )
+	end
+	screen:addEventListener("onNavigate", t)
 end
 
 local function testRecipesRowRenderer()

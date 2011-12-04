@@ -14,10 +14,14 @@ function RecipesScreen:new(x, y, width, height)
 	
 	function screen.onItemClick(event)
 		print("RecipesScreen::onItemClick")
+		if event.phase ~= "release" then
+			return
+		end
+		
 	   --print( "You touched item: " .. self.categoryData )
 		local self = screen
 		--print("self.categoryData: ", screen.categoryData[event.target.id].title.label)
-		local itemLabel = self.categoryData[event.target.id].title.label
+		local itemLabel = self.categories[event.index]
 		local navTarget
 		if itemLabel == "All" then
 			navTarget = "AllScreen"

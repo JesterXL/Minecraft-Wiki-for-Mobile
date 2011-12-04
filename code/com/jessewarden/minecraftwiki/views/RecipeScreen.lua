@@ -1,3 +1,4 @@
+local storyboard = require "storyboard"
 require "widget"
 require "com.jessewarden.minecraftwiki.views.BaseScreen"
 require "com.jessewarden.minecraftwiki.controls.CraftGridView"
@@ -16,63 +17,68 @@ function RecipeScreen:new(x, y, stageWidth, stageHeight)
 	
 	local screen = BaseScreen:new(x, y, stageWidth, stageHeight)
 	
-	local scrollHeight = WidgetUtils:getHeight(stageHeight - screen.content.y)
-	local scrollView = widget.newScrollView{x=0, y=0, width=stageWidth, height=scrollHeight}
-	screen.scrollView = scrollView
-	screen:insertContent(scrollView.view)
-	
-	local backgroundRect = display.newRect(x, y, stageWidth, stageHeight)
-	----print("backgroundRect: ", backgroundRect)
-	backgroundRect:setFillColor(255, 255, 255)
-	screen.backgroundRect = backgroundRect
-	scrollView:insert(backgroundRect)
-	
-	
-	local craftGridView = CraftGridView:new()
-	screen.craftGridView = craftGridView
-	if stageWidth / 211 >= 2 then
-		craftGridView.xScale = 2
-		craftGridView.yScale = 2
+	screen.superCreateScene = screen.createScene
+	function screen:createScene(event)
+		self:superCreateScene(event)
+		
+		local group = self.view
+		
+		local scrollHeight = WidgetUtils:getHeight(stageHeight - screen.content.y)
+		local scrollView = widget.newScrollView{x=0, y=0, width=stageWidth, height=scrollHeight}
+		group.scrollView = scrollView
+		self:insertContent(scrollView.view)
+
+		local backgroundRect = display.newRect(x, y, stageWidth, stageHeight)
+		backgroundRect:setFillColor(255, 255, 255)
+		screen.backgroundRect = backgroundRect
+		scrollView:insert(backgroundRect)
+
+		local craftGridView = CraftGridView:new()
+		screen.craftGridView = craftGridView
+		if stageWidth / 211 >= 2 then
+			craftGridView.xScale = 2
+			craftGridView.yScale = 2
+		end
+		scrollView:insert(screen.craftGridView)
+
+		local textColor = {r = 0, g = 0, b = 0}
+		local descriptionTitle = TextArea:new({hasBackground = false, width=stageWidth,
+												size=Constants.TEXT_TITLE_SIZE,
+												color=textColor})
+		screen.descriptionTitle = descriptionTitle
+		scrollView:insert(descriptionTitle)
+		descriptionTitle:setText("Description")
+
+		local ingredientsTitle = TextArea:new({hasBackground = false, width=stageWidth,
+												size=Constants.TEXT_TITLE_SIZE,
+												color=textColor})
+		screen.ingredientsTitle = ingredientsTitle
+		scrollView:insert(ingredientsTitle)
+		ingredientsTitle:setText("Ingredients")
+
+		local descriptionText = TextArea:new({hasBackground=false, width=stageWidth,
+												height=150,
+												size=Constants.TEXT_DESCRIPTION_SIZE,
+												color=textColor})
+		screen.descriptionText = descriptionText
+		scrollView:insert(descriptionText)
+
+		local ingredientsText = TextArea:new({hasBackground=false, width=stageWidth,
+												height=100,
+												size=Constants.TEXT_DESCRIPTION_SIZE,
+												color=textColor})
+		screen.ingredientsText = ingredientsText
+		scrollView:insert(ingredientsText)
+
+		local addToFavoritesButton = widget.newButton
+		{
+			id = "addToFavoritesButton",
+			label = "Add To Favorites",
+			width=stageWidth * .8,
+		}
+		screen.addToFavoritesButton = addToFavoritesButton
+		scrollView:insert(addToFavoritesButton.view)
 	end
-	scrollView:insert(screen.craftGridView)
-	
-	local textColor = {r = 0, g = 0, b = 0}
-	local descriptionTitle = TextArea:new({hasBackground = false, width=stageWidth,
-											size=Constants.TEXT_TITLE_SIZE,
-											color=textColor})
-	screen.descriptionTitle = descriptionTitle
-	scrollView:insert(descriptionTitle)
-	descriptionTitle:setText("Description")
-	
-	local ingredientsTitle = TextArea:new({hasBackground = false, width=stageWidth,
-											size=Constants.TEXT_TITLE_SIZE,
-											color=textColor})
-	screen.ingredientsTitle = ingredientsTitle
-	scrollView:insert(ingredientsTitle)
-	ingredientsTitle:setText("Ingredients")
-	
-	local descriptionText = TextArea:new({hasBackground=false, width=stageWidth,
-											height=150,
-											size=Constants.TEXT_DESCRIPTION_SIZE,
-											color=textColor})
-	screen.descriptionText = descriptionText
-	scrollView:insert(descriptionText)
-	
-	local ingredientsText = TextArea:new({hasBackground=false, width=stageWidth,
-											height=100,
-											size=Constants.TEXT_DESCRIPTION_SIZE,
-											color=textColor})
-	screen.ingredientsText = ingredientsText
-	scrollView:insert(ingredientsText)
-	
-	local addToFavoritesButton = widget.newButton
-	{
-		id = "addToFavoritesButton",
-		label = "Add To Favorites",
-		width=stageWidth * .8,
-	}
-	screen.addToFavoritesButton = addToFavoritesButton
-	scrollView:insert(addToFavoritesButton.view)
 	
 	function screen:setRecipe(recipeVO)
 		print("RecipeScreen::setRecipe, recipeVO: ", recipeVO, ", recipeVO.recipe: ", recipeVO.recipe)
@@ -187,4 +193,4 @@ function RecipeScreen:new(x, y, stageWidth, stageHeight)
 end
 
 
-return RecipeScreen
+return RecipeScreen:new(0, 0, 400, 500)
